@@ -11,7 +11,9 @@ import CountryDetailsPage from './components/CountryDetailsPage';
 import useRestCountries from './hooks/useRestCountries';
 
 const App = () => {
+  /* eslint-disable no-unused-vars */
   const [countries, setCountries] = useRestCountries();
+  /* eslint-disable no-unused-vars */
   const [filteredCountries, setFilteredCountries] = useState([]);
   const [country, setCountry] = useState('');
   const [countryBorders, setCountryBorders] = useState([]);
