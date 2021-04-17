@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import  { Route, Switch, useHistory } from 'react-router-dom';
+import  { Route, Switch } from 'react-router-dom';
 
 import Header from './components/Header';
 import SearchBar from './components/SearchBar';
@@ -11,7 +11,6 @@ import CountryDetailsPage from './components/CountryDetailsPage';
 import useRestCountries from './hooks/useRestCountries';
 
 const App = () => {
-  const history = useHistory();
   const [countries, setCountries] = useRestCountries();
   const [filteredCountries, setFilteredCountries] = useState([]);
   const [country, setCountry] = useState('');
