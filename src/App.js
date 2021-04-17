@@ -45,32 +45,31 @@ const App = () => {
   }
 
   return (
-    <Switch>
-      <>
-        <div className="flex flex-col">
-          <Header />
-          <Route path="/" exact>
-            <section className="flex flex-col bg-very-light-gray dark:bg-very-dark-blue-bg px-8 sm:px-16 py-8">
-              <div className="flex flex-col w-full mb-12 sm:flex-row sm:justify-between">
-                <SearchBar setSearchTerm={setSearchTerm} />
-                <Filter filterByRegion={filterByRegion} />
-              </div>
-              <CountriesList
-                countries={filteredCountries.length > 0 ? filteredCountries : countries}
-                returnCountryForDetails={returnCountryForDetails}
-              />
-            </section>
-          </Route>
-          <Route path={`/${(country.name) ? country.name.toLowerCase().replace(' ', '-') : ''}`}>
-            <CountryDetailsPage
-              country={country}
-              countryBorders={countryBorders}
+    <div className="flex flex-col">
+      <Header />
+      <Switch>
+        <Route path="/" exact>
+          <section className="flex flex-col bg-very-light-gray dark:bg-very-dark-blue-bg px-8 sm:px-16 py-8">
+            <div className="flex flex-col w-full mb-12 sm:flex-row sm:justify-between">
+              <SearchBar setSearchTerm={setSearchTerm} />
+              <Filter filterByRegion={filterByRegion} />
+            </div>
+            <CountriesList
+              countries={filteredCountries.length > 0 ? filteredCountries : countries}
               returnCountryForDetails={returnCountryForDetails}
             />
-          </Route>
-        </div>
-      </>
-    </Switch>
+          </section>
+        </Route>
+        <Route path={`/${(country.name) ? country.name.toLowerCase().replace(' ', '-') : ''}`}>
+          <CountryDetailsPage
+            country={country}
+            countryBorders={countryBorders}
+            returnCountryForDetails={returnCountryForDetails}
+          />
+        </Route>
+      </Switch>
+    </div>
+
   );
 }
 
