@@ -14,11 +14,12 @@ This is a solution to the [REST Countries API with color theme switcher challeng
 
 ### Screenshot
 
-![](./screenshot.png)
+![](./screenshot-dark.png)
+![](./screenshot-light.png)
 
 ### Links
 
-- Live Site URL: https://dreamy-booth-7b55ce.netlify.app/
+- Live Site URL: https://hardcore-allen-89b8c2.netlify.app/
 
 ## My process
 
