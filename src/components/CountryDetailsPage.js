@@ -8,6 +8,7 @@ const CountryDetailsPage = ({country, countryBorders, returnCountryForDetails}) 
   const history = useHistory();
   const {flag, name, nativeName, population, region, subregion, capital, topLevelDomain, currencies, languages} = country;
 
+  console.log(history)
   return (
     <div className="flex flex-col w-screen p-8 sm:px-16 sm:py-24 dark:bg-very-dark-blue-bg dark:text-white">
       <Button text={'Back'} onClick={history.goBack} />
@@ -56,7 +57,7 @@ const CountryDetailsPage = ({country, countryBorders, returnCountryForDetails}) 
                   className="rounded-md mr-4 mb-4 px-6 py-2 shadow-md dark:bg-dark-blue"
                   onClick={() => {
                     returnCountryForDetails(border);
-                    history.push(`/${border.toLowerCase().replace(' ', '-')}`, { from: `/${border.toLowerCase().replace(' ', '-')}`});
+                    history.push(`/${border.toLowerCase().replace(' ', '-')}`, { from: `/${name.toLowerCase().replace(' ', '-')}`});
                   }}
                 >
                   {border}
