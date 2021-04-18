@@ -19,6 +19,7 @@ const App = () => {
   const [countryBorders, setCountryBorders] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
+  console.log(country)
   useEffect(() => {
     if (searchTerm !== '') setFilteredCountries(countries.filter(country => country.name.toLowerCase().includes(searchTerm.toLowerCase())));
   }, [searchTerm, countries])
@@ -60,7 +61,7 @@ const App = () => {
             />
           </section>
         </Route>
-        <Route path={`/${(country.name) ? country.name.toLowerCase().replace(' ', '-') : ''}`}>
+        <Route path={`/:${country ? country.name.toLowerCase().replace(/[\s()]+/g, '-') : ''}`}>
           <CountryDetailsPage
             country={country}
             countryBorders={countryBorders}
@@ -69,7 +70,6 @@ const App = () => {
         </Route>
       </Switch>
     </div>
-
   );
 }
 

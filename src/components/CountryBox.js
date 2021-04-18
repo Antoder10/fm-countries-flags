@@ -12,7 +12,7 @@ const CountryBox = ({country, returnCountryForDetails}) => {
       className="flex flex-col bg-white dark:bg-dark-blue dark:text-white shadow-md overflow-hidden"
       onClick={() => {
         returnCountryForDetails(name);
-        history.push(`/${name.toLowerCase().replace(' ', '-')}`, { from: "/"});
+        history.push(`/${name.toLowerCase().replace(/[\s()]+/g, '-')}`, { from: "/"});
       }}
     >
       <img src={flag} alt={name} className="object-cover max-h-40" />

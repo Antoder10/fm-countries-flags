@@ -2,10 +2,10 @@ import React from 'react';
 
 import LazyLoad from 'react-lazyload';
 
-import CountryBox from './CountryBox';
-
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
+
+import CountryBox from './CountryBox';
 
 const CountriesList = ({countries, returnCountryForDetails}) => {
   return (
