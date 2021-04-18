@@ -7,7 +7,7 @@ import Loader from "react-loader-spinner";
 
 import CountryBox from './CountryBox';
 
-const CountriesList = ({countries, returnCountryForDetails}) => {
+const CountriesList = ({countries, returnCountryForDetails, replaceChars}) => {
   return (
     <div className="grid grid-cols-1 gap-y-12 sm:grid-cols-4 sm:gap-12">
       {countries.map(country => {
@@ -23,7 +23,12 @@ const CountriesList = ({countries, returnCountryForDetails}) => {
               />
             }
           >
-            <CountryBox key={country.name} country={country} returnCountryForDetails={returnCountryForDetails} />
+            <CountryBox
+              key={country.name}
+              country={country}
+              returnCountryForDetails={returnCountryForDetails}
+              replaceChars={replaceChars}
+            />
           </LazyLoad>
         )
       })}

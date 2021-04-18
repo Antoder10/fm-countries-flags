@@ -19,22 +19,9 @@ const App = () => {
   const [countryBorders, setCountryBorders] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
-  console.log(country)
   useEffect(() => {
     if (searchTerm !== '') setFilteredCountries(countries.filter(country => country.name.toLowerCase().includes(searchTerm.toLowerCase())));
-  }, [searchTerm, countries])
-
-  const returnCountryForDetails = countryName => {
-    const country = countries.find(country => country.name === countryName);
-    setCountry(country);
-
-    const bordersCodes = country.borders.map(border => border);
-    const bordersNames = bordersCodes
-      .map(bordersCode => countries.filter(country => country.alpha3Code === bordersCode))
-      .flat()
-      .map(country => country.name);
-    setCountryBorders(bordersNames);
-  }
+  }, [searchTerm, countries]);
 
   const filterByRegion = region => {
     if (region === 'All') {
@@ -45,12 +32,31 @@ const App = () => {
     }
   }
 
+  const replaceChars = name => {
+    return name.toLowerCase().replace(/[\s()]+/g, '-').replace(/-*$/g, "").replace(/å/gi, 'a');
+  }
+
+  const returnCountryForDetails = countryName => {
+    if (countryName) {
+      const country = countries.find(country => country.name === countryName);
+      setCountry(country);
+
+      const bordersNames = country.borders
+        .map(border => border)
+        .map(bordersCode => countries.filter(country => country.alpha3Code === bordersCode))
+        .flat()
+        .map(country => country.name);
+      setCountryBorders(bordersNames);
+    }
+  }
+
+
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col min-h-screen">
       <Header />
       <Switch>
         <Route path="/" exact>
-          <section className="flex flex-col bg-very-light-gray dark:bg-very-dark-blue-bg px-8 sm:px-16 py-8">
+          <section className="flex flex-col min-h-screen bg-very-light-gray dark:bg-very-dark-blue-bg px-8 sm:px-16 py-8">
             <div className="flex flex-col w-full mb-12 sm:flex-row sm:justify-between">
               <SearchBar setSearchTerm={setSearchTerm} />
               <Filter filterByRegion={filterByRegion} />
@@ -58,14 +64,16 @@ const App = () => {
             <CountriesList
               countries={filteredCountries.length > 0 ? filteredCountries : countries}
               returnCountryForDetails={returnCountryForDetails}
+              replaceChars={replaceChars}
             />
           </section>
         </Route>
-        <Route path={`/:${country ? country.name.toLowerCase().replace(/[\s()]+/g, '-') : ''}`}>
+        <Route path={`/:${country ? replaceChars(country.name) : ''}`}>
           <CountryDetailsPage
             country={country}
             countryBorders={countryBorders}
             returnCountryForDetails={returnCountryForDetails}
+            replaceChars={replaceChars}
           />
         </Route>
       </Switch>
