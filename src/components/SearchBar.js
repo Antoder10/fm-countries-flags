@@ -5,11 +5,11 @@ const SearchBar = ({filter}) => {
 
   const onFormSubmit = e => {
     e.preventDefault();
-    filter(term);
+    filter(e.target.id, term);
   }
 
   return (
-    <form onSubmit={onFormSubmit}>
+    <form onSubmit={onFormSubmit} id="search-bar">
       <input
         type="text"
         placeholder="🔍 Search for a country..."

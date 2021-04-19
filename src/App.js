@@ -18,16 +18,18 @@ const App = () => {
   const [country, setCountry] = useState('');
   const [countryBorders, setCountryBorders] = useState([]);
 
-  const filter = (term) => {
-    if (term === 'All') {
-      setFilteredCountries([])
+  const filter = (id, value) => {
+    if (id === 'search-bar' && value !== '') {
+      setFilteredCountries(countries.filter(country => country.name.toLowerCase().includes(value.toLowerCase())))
     }
-    else if (term === 'Africa' || 'Americas' || 'Asia' || 'Europe' || 'Oceania') {
-      setFilteredCountries(countries.filter(country => country.region === term));
+    else if (id === 'regions') {
+      if (value === 'All') {
+        setFilteredCountries([])
+      }
+      else if (value === 'Africa' || 'Americas' || 'Asia' || 'Europe' || 'Oceania') {
+        setFilteredCountries(countries.filter(country => country.region === value));
+      }
     }
-    else if (term !== '') {
-      setFilteredCountries(countries.filter(country => country.name.toLowerCase().includes(term.toLowerCase())))
-    };
   }
 
   const replaceChars = name => {
