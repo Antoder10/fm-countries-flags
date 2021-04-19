@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import  { Route, Switch } from 'react-router-dom';
 
 import Header from './components/Header';
@@ -17,19 +17,17 @@ const App = () => {
   const [filteredCountries, setFilteredCountries] = useState([]);
   const [country, setCountry] = useState('');
   const [countryBorders, setCountryBorders] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
 
-  useEffect(() => {
-    if (searchTerm !== '') setFilteredCountries(countries.filter(country => country.name.toLowerCase().includes(searchTerm.toLowerCase())));
-  }, [searchTerm, countries]);
-
-  const filterByRegion = region => {
-    if (region === 'All') {
+  const filter = (term) => {
+    if (term === 'All') {
       setFilteredCountries([])
     }
-    else {
-      setFilteredCountries(countries.filter(country => country.region === region));
+    else if (term === 'Africa' || 'Americas' || 'Asia' || 'Europe' || 'Oceania') {
+      setFilteredCountries(countries.filter(country => country.region === term));
     }
+    else if (term !== '') {
+      setFilteredCountries(countries.filter(country => country.name.toLowerCase().includes(term.toLowerCase())))
+    };
   }
 
   const replaceChars = name => {
@@ -50,7 +48,6 @@ const App = () => {
     }
   }
 
-
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
@@ -58,8 +55,8 @@ const App = () => {
         <Route path="/" exact>
           <section className="flex flex-col min-h-screen bg-very-light-gray dark:bg-very-dark-blue-bg px-8 sm:px-16 py-8">
             <div className="flex flex-col w-full mb-12 sm:flex-row sm:justify-between">
-              <SearchBar setSearchTerm={setSearchTerm} />
-              <Filter filterByRegion={filterByRegion} />
+              <SearchBar filter={filter} />
+              <Filter filter={filter} />
             </div>
             <CountriesList
               countries={filteredCountries.length > 0 ? filteredCountries : countries}
